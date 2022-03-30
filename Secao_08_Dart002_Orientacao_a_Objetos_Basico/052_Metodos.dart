@@ -25,7 +25,7 @@ class Pessoa {
   bool casado = false;
 
   int? aniversario() {
-    print('Parabéns! ${nome}');
+    print('Parabéns! $nome');
     if (idade != null) {
       idade = idade! + 1;
     }
