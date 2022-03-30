@@ -1,5 +1,5 @@
 void main() {
-  Pessoa pessoa1 = new Pessoa();
+  Pessoa pessoa1 = Pessoa();
   pessoa1.nome = 'Anderson';
   pessoa1.idade = 15;
   pessoa1.casado = true;
@@ -9,7 +9,7 @@ void main() {
 
   print('\n----------------------------------------------------\n');
 
-  Pessoa pessoa2 = new Pessoa();
+  Pessoa pessoa2 = Pessoa();
   pessoa2.nome = 'Alguém';
   print(pessoa2.nome);
   print(pessoa2.idade);
