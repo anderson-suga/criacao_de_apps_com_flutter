@@ -38,6 +38,7 @@ class Pessoa {
 
   String? _nomeSecreto = 'Flutter';
 
+  // Modifica o getter deixando null o atributo
   String? get nomeSecreto {
     String? nome = _nomeSecreto;
     if (nome != null) {
