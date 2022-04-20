@@ -25,7 +25,14 @@ class TodoListPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {},
-                child: Text('+'),
+                style:  ElevatedButton.styleFrom(
+                  primary: const Color(0xff00d7f3),
+                  padding: const EdgeInsets.all(14),
+                ),
+                child: const Icon(
+                  Icons.add,
+                  size: 30,
+                ),
               ),
             ],
           ),
