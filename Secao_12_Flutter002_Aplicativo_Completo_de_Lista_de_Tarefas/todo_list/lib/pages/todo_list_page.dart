@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/models/todo.dart';
 import '../widgets/todo_list_item.dart';
 
 class TodoListPage extends StatefulWidget {
@@ -11,7 +12,7 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   final TextEditingController todoController = TextEditingController();
 
-  List<String> todos = [];
+  List<Todo> todos = [];
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +42,12 @@ class _TodoListPageState extends State<TodoListPage> {
                     ElevatedButton(
                       onPressed: () {
                         String text = todoController.text;
+                        Todo newTodo = Todo(
+                          title: text,
+                          dateTime: DateTime.now(),
+                        );
                         setState(() {
-                          todos.add(text);
+                          todos.add(newTodo);
                         });
                         todoController.clear();
                       },
@@ -62,8 +67,10 @@ class _TodoListPageState extends State<TodoListPage> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      for (String todo in todos)
-                        TodoListItem(title: todo,),
+                      for (Todo todo in todos)
+                        TodoListItem(
+                          todo: todo,
+                        ),
                     ],
                   ),
                 ),
@@ -71,7 +78,8 @@ class _TodoListPageState extends State<TodoListPage> {
                 Row(
                   children: [
                     Expanded(
-                      child: Text('Você possui ${todos.length} tarefa(s) pendente(s)'),
+                      child: Text(
+                          'Você possui ${todos.length} tarefa(s) pendente(s)'),
                     ),
                     const SizedBox(width: 8),
                     ElevatedButton(
