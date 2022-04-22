@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TodoListPage extends StatelessWidget {
+class TodoListPage extends StatefulWidget {
   const TodoListPage({Key? key}) : super(key: key);
+
+  @override
+  State<TodoListPage> createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
+  final TextEditingController todoController = TextEditingController();
+
+  List<String> todos = [];
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +23,10 @@ class TodoListPage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: todoController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Adicione uma tarefa',
                         hintText: 'Ex.: Estudar flutter',
@@ -27,7 +37,13 @@ class TodoListPage extends StatelessWidget {
                     width: 8,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      String text = todoController.text;
+                      setState(() {
+                        todos.add(text);
+                      });
+                      todoController.clear();
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xff00d7f3),
                       padding: const EdgeInsets.all(14),
@@ -40,32 +56,19 @@ class TodoListPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  ListTile(
-                    title: const Text('Task 1'),
-                    subtitle: const Text('20/11/2020'),
-                    leading: const Icon(
-                      Icons.save,
-                      size: 30,
-                    ),
-                    onTap: () {
-                      debugPrint('Task 1');
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Task 2'),
-                    subtitle: const Text('20/11/2020'),
-                    leading: const Icon(
-                      Icons.person,
-                      size: 30,
-                    ),
-                    onTap: () {
-                      debugPrint('Task 2');
-                    },
-                  ),
-                ],
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (String todo in todos)
+                      ListTile(
+                        title: Text(todo),
+                        onTap: () {
+                          debugPrint('Task: $todo');
+                        },
+                      )
+                  ],
+                ),
               ),
               const SizedBox(height: 16),
               Row(
@@ -80,7 +83,7 @@ class TodoListPage extends StatelessWidget {
                       primary: const Color(0xff00d7f3),
                       padding: const EdgeInsets.all(14),
                     ),
-                    child: Text('Limpar tudo'),
+                    child: const Text('Limpar tudo'),
                   ),
                 ],
               ),
